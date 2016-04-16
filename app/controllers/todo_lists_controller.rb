@@ -1,7 +1,6 @@
 class TodoListsController < ApplicationController
   before_action :set_todo_list, only: [:show, :edit, :update, :destroy]
   before_action :get_day, only: [:index]
-  require 'pry'
   # GET /todo_lists
   # GET /todo_lists.json
   def index

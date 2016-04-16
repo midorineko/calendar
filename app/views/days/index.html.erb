@@ -1,8 +1,11 @@
 <% @days.each do |day| %>
     <tr>
-      <td><%= day[:name] %></td>
+      <td><%= day[:name].to_date %></td>
+      <td><%= day[:name].strftime("%A") %></td>
 
-      <td><%= link_to 'Show', day_todo_lists_path(1) %></td>
+      <% if day[:day] != 'none' %>
+        <td><%= link_to 'Show', day_todo_lists_path(1) %></td>
+      <% end %>
 
     </tr>
 <% end %>
