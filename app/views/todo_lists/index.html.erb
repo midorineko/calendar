@@ -14,9 +14,10 @@
       <tr>
         <td><%= todo_list.title %></td>
         <td><%= todo_list.description %></td>
-        <td><%= link_to 'Show', todo_list %></td>
-        <td><%= link_to 'Edit', edit_todo_list_path(todo_list) %></td>
-        <td><%= link_to 'Destroy', todo_list, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= todo_list.todo_items.first.content %></td>
+
+        <td><%= link_to 'Show', day_todo_lists_path %></td>
+
       </tr>
     <% end %>
   </tbody>
@@ -24,4 +25,4 @@
 
 <br>
 
-<%= link_to 'New Todo list', new_todo_list_path %>
+<%= link_to 'New Todo list', new_day_todo_list_path %>

@@ -38,3 +38,10 @@ gem 'spring',        group: :development
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
+group :development do
+	gem 'pry'
+	gem 'pry-remote'
+	gem 'pry-rails'
+	gem 'pry-stack_explorer'
+	gem 'pry-byebug'
+end

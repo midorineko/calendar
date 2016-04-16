@@ -1,10 +1,11 @@
 class TodoListsController < ApplicationController
   before_action :set_todo_list, only: [:show, :edit, :update, :destroy]
-
+  before_action :get_day, only: [:index]
+  require 'pry'
   # GET /todo_lists
   # GET /todo_lists.json
   def index
-    @todo_lists = TodoList.all
+    @todo_lists = Day.find(@day).todo_lists.all
   end
 
   # GET /todo_lists/1
@@ -65,6 +66,10 @@ class TodoListsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_todo_list
       @todo_list = TodoList.find(params[:id])
+    end
+
+    def get_day
+      @day = params[:day_id]
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

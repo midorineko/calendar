@@ -1,1 +1,8 @@
-<p>don't be a stussy</p>
+<% @days.each do |day| %>
+    <tr>
+      <td><%= day[:name] %></td>
+
+      <td><%= link_to 'Show', day_todo_lists_path(1) %></td>
+
+    </tr>
+<% end %>
