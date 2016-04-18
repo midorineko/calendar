@@ -1,0 +1,11 @@
+<% @todo_items.each do |todo_item| %>
+    <tr>
+      <td><%= todo_item.content %></td>
+
+    </tr>
+<% end %>
+
+<%= form_for([@day, @todo_list, @todo_list.todo_items.build]) do |f| %>
+    <%= f.text_field :content, placeholder: "Some Shit" %>
+    <%= f.submit %>
+<% end %>

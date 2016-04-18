@@ -1,6 +1,6 @@
 class TodoListsController < ApplicationController
   before_action :set_todo_list, only: [:show, :edit, :update, :destroy]
-  before_action :get_day, only: [:index]
+  before_action :get_day, only: [:index, :new, :create, :destroy]
   # GET /todo_lists
   # GET /todo_lists.json
   def index
@@ -14,7 +14,7 @@ class TodoListsController < ApplicationController
 
   # GET /todo_lists/new
   def new
-    @todo_list = TodoList.new
+    @day = Day.find(@day)
   end
 
   # GET /todo_lists/1/edit
@@ -24,17 +24,9 @@ class TodoListsController < ApplicationController
   # POST /todo_lists
   # POST /todo_lists.json
   def create
-    @todo_list = TodoList.new(todo_list_params)
+    @todo_list = Day.find(@day).todo_lists.create(todo_list_params)
 
-    respond_to do |format|
-      if @todo_list.save
-        format.html { redirect_to @todo_list, notice: 'Todo list was successfully created.' }
-        format.json { render :show, status: :created, location: @todo_list }
-      else
-        format.html { render :new }
-        format.json { render json: @todo_list.errors, status: :unprocessable_entity }
-      end
-    end
+    redirect_to day_todo_lists_path(@day)
   end
 
   # PATCH/PUT /todo_lists/1
@@ -55,10 +47,8 @@ class TodoListsController < ApplicationController
   # DELETE /todo_lists/1.json
   def destroy
     @todo_list.destroy
-    respond_to do |format|
-      format.html { redirect_to todo_lists_url, notice: 'Todo list was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+
+    redirect_to day_todo_lists_path(@day)
   end
 
   private

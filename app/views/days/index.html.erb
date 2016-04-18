@@ -5,6 +5,8 @@
 
       <% if day[:day] != 'none' %>
         <td><%= link_to 'Show', day_todo_lists_path(day[:day]) %></td>
+      <% else %>
+          <td><%= link_to 'Add Todo list', new_day_path(day[:name]) %></td>
       <% end %>
 
     </tr>

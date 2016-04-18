@@ -1,7 +1,15 @@
 class TodoItemsController < ApplicationController
-	before_action :set_todo_list
-	before_action :set_todo_item
+	before_action :set_todo_list, only: [:create, :destroy, :complete, :index]
+	before_action :set_todo_item, only: [:create, :destroy, :complete]
+	before_action :get_todo_items, only: [:index]
 	skip_before_action :set_todo_item, only: [:create]
+
+	def index
+		# binding.pry
+		@day = Day.find(params[:day_id])
+		@todo_items
+		@todo_list
+	end
 
 	def create
 		@todo_item = @todo_list.todo_items.create(todo_item_params)
@@ -24,6 +32,10 @@ class TodoItemsController < ApplicationController
 	end
 
 	private
+
+	def get_todo_items
+		@todo_items = TodoList.find(params[:todo_list_id]).todo_items
+	end
 
 	def set_todo_list
 		@todo_list = TodoList.find(params[:todo_list_id])

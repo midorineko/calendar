@@ -13,6 +13,11 @@ class DaysController < ApplicationController
 
 	end
 
+	def new
+		@day = Day.create(date: params[:format])
+		redirect_to day_todo_lists_path(@day)
+	end
+
 	private
 
 	def get_week
