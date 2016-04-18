@@ -2,33 +2,29 @@ class TodoItemsController < ApplicationController
 	before_action :set_todo_list, only: [:create, :destroy, :complete, :index]
 	before_action :set_todo_item, only: [:create, :destroy, :complete]
 	before_action :get_todo_items, only: [:index]
+	before_action :set_day, only: [:index, :create, :destroy, :complete]
 	skip_before_action :set_todo_item, only: [:create]
 
 	def index
-		# binding.pry
-		@day = Day.find(params[:day_id])
-		@todo_items
-		@todo_list
 	end
 
 	def create
 		@todo_item = @todo_list.todo_items.create(todo_item_params)
-		redirect_to @todo_list
+		redirect_to day_todo_list_todo_items_path(@day, @todo_list.id)
 	end
 
 	def destroy
-		@todo_item = @todo_list.todo_items.find(params[:id])
 		if @todo_item.destroy
 			flash[:success] = "Todo list item was destroyed bruh"
 		else
 			flash[:error] = "Todo couldn't be deleted bruv"
 		end
-		redirect_to @todo_list
+		redirect_to day_todo_list_todo_items_path(@day, @todo_list.id)
 	end
 
 	def complete
 		@todo_item.update_attribute(:completed_at, Time.now)
-		redirect_to @todo_list, notice: 'Todo item complete cuz'
+		redirect_to day_todo_list_todo_items_path(@day, @todo_list.id)
 	end
 
 	private
@@ -39,6 +35,10 @@ class TodoItemsController < ApplicationController
 
 	def set_todo_list
 		@todo_list = TodoList.find(params[:todo_list_id])
+	end
+
+	def set_day
+		@day = Day.find(params[:day_id])
 	end
 
 	def set_todo_item

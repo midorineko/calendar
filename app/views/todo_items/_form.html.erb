@@ -1,4 +1,18 @@
-<%= form_for([@todo_list, @todo_list.todo_items.build]) do |f| %>
-    <%= f.text_field :content, placeholder: "New Todo" %>
+<% @todo_items.each do |todo_item| %>
+    <ul>
+      <% if !todo_item.completed? %>
+          <li><%= todo_item.content %></li>
+          <%= link_to "Delete", day_todo_list_todo_item_path(@day, @todo_list, todo_item.id), method: :delete, data: {confirm: "are you foshizzle?"} %>
+
+          <%= link_to "Mark as Complete", complete_day_todo_list_todo_item_path(@day, @todo_list, todo_item.id), method: :patch %>
+      <% else %>
+          <li style="color: red;"><%= todo_item.content %></li>
+          <%= link_to "Delete", day_todo_list_todo_item_path(@day, @todo_list, todo_item.id), method: :delete, data: {confirm: "are you foshizzle?"} %>
+      <% end %>
+    </ul>
+<% end %>
+
+<%= form_for([@day, @todo_list, @todo_list.todo_items.build]) do |f| %>
+    <%= f.text_field :content, placeholder: "Some Shit" %>
     <%= f.submit %>
 <% end %>

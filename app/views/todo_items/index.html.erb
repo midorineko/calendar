@@ -1,11 +1,4 @@
-<% @todo_items.each do |todo_item| %>
-    <tr>
-      <td><%= todo_item.content %></td>
+<%= render 'form' %>
 
-    </tr>
-<% end %>
-
-<%= form_for([@day, @todo_list, @todo_list.todo_items.build]) do |f| %>
-    <%= f.text_field :content, placeholder: "Some Shit" %>
-    <%= f.submit %>
-<% end %>
+<%= link_to "Back to Todo Lists", day_todo_lists_path(@day.id) %>
+<%= link_to "Back to Calendar", days_path %></p>
