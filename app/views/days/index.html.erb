@@ -1,14 +1,26 @@
 <% @days.each do |day| %>
-    <div class="week_day">
-      <p><%= day[:name].to_date %></p>
-      <p><%= day[:name].strftime("%A") %></p>
-      <br/>
-      <p>
-      <% if day[:day] != 'none' %>
-        <p><%= link_to 'Show', day_todo_lists_path(day[:day]) %></p>
-      <% else %>
-          <p><%= link_to 'Add Todo list', new_day_path(day[:name]) %></p>
-      <% end %>
-      </p>
-    </div>
+    <% if day[:day] != 'none' %>
+        <% if day[:day].first.has_todo_lists %>
+            <div class="week_day week_day_content">
+                <%= link_to day_todo_lists_path(day[:day].first.id) do %>
+                      <p><%= day[:name].to_date %></p>
+                      <p><%= day[:name].strftime("%A") %></p>
+                  <% end %>
+            </div>
+        <% else %>
+            <div class="week_day">
+              <%= link_to day_todo_lists_path(day[:day].first.id) do %>
+                  <p><%= day[:name].to_date %></p>
+                  <p><%= day[:name].strftime("%A") %></p>
+              <% end %>
+            </div>
+        <% end %>
+    <% else %>
+        <div class="week_day">
+            <%= link_to new_day_path(day[:name]) do %>
+                  <p><%= day[:name].to_date %></p>
+                  <p><%= day[:name].strftime("%A") %></p>
+            <% end %>
+        </div>
+    <% end %>
 <% end %>
