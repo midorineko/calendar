@@ -1,13 +1,14 @@
 <% @days.each do |day| %>
-    <tr>
-      <td><%= day[:name].to_date %></td>
-      <td><%= day[:name].strftime("%A") %></td>
-
+    <div class="week_day">
+      <p><%= day[:name].to_date %></p>
+      <p><%= day[:name].strftime("%A") %></p>
+      <br/>
+      <p>
       <% if day[:day] != 'none' %>
-        <td><%= link_to 'Show', day_todo_lists_path(day[:day]) %></td>
+        <p><%= link_to 'Show', day_todo_lists_path(day[:day]) %></p>
       <% else %>
-          <td><%= link_to 'Add Todo list', new_day_path(day[:name]) %></td>
+          <p><%= link_to 'Add Todo list', new_day_path(day[:name]) %></p>
       <% end %>
-
-    </tr>
+      </p>
+    </div>
 <% end %>

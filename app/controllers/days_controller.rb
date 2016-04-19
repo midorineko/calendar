@@ -6,7 +6,7 @@ class DaysController < ApplicationController
 		@days = @week
 		@days.map do |day|
 			day_with_lists = Day.where(date: day[:name].strftime("%Y-%m-%d"))
-			if day_with_lists.length > 0
+			if day_with_lists.length > 0 && day_with_lists.first.todo_lists.length > 0
 				day[:day] = day_with_lists.first.id
 			end
 		end
